@@ -16,13 +16,18 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.NavigateNext
 import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -47,6 +52,7 @@ import com.axu.brainquest.ui.theme.SuccessGreen
 import com.axu.brainquest.ui.theme.WarningOrange
 import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun QuizScreen(navController: NavController, quizViewModel: QuizViewModel = viewModel()) {
     val state by quizViewModel.uiState.collectAsState()
@@ -116,7 +122,31 @@ fun QuizScreen(navController: NavController, quizViewModel: QuizViewModel = view
     val isLast = state.currentIndex == state.questions.lastIndex
     val progress = (state.currentIndex + 1).toFloat() / state.questions.size
 
-    Box(
+    Column(modifier = Modifier.fillMaxSize()) {
+        // Top App Bar
+        TopAppBar(
+            title = { 
+                Text(
+                    text = "Quiz",
+                    style = MaterialTheme.typography.headlineSmall,
+                    fontWeight = FontWeight.Bold
+                )
+            },
+            navigationIcon = {
+                IconButton(onClick = { navController.navigate(Screen.QuizSetup.route) }) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = "Back to Quiz Setup"
+                    )
+                }
+            },
+            colors = TopAppBarDefaults.topAppBarColors(
+                containerColor = MaterialTheme.colorScheme.surface,
+                titleContentColor = MaterialTheme.colorScheme.onSurface
+            )
+        )
+
+        Box(
         modifier = Modifier
             .fillMaxSize()
             .background(
@@ -242,11 +272,15 @@ fun QuizScreen(navController: NavController, quizViewModel: QuizViewModel = view
                 
                 QuizOptionButton(
                     text = Html.fromHtml(option, Html.FROM_HTML_MODE_LEGACY).toString(),
-                    onClick = { quizViewModel.answerCurrentQuestion(option) },
+                    onClick = { 
+                        if (selected.isEmpty()) { // Only allow selection if no answer is selected yet
+                            quizViewModel.answerCurrentQuestion(option)
+                        }
+                    },
                     modifier = Modifier.padding(bottom = 12.dp),
                     isSelected = isSelected,
                     isCorrect = isCorrect,
-                    enabled = true // Allow answer changes
+                    enabled = selected.isEmpty() || isSelected // Disable all options except selected one after selection
                 )
             }
             
@@ -330,6 +364,7 @@ fun QuizScreen(navController: NavController, quizViewModel: QuizViewModel = view
                 }
             }
         }
+    }
     }
 }
 

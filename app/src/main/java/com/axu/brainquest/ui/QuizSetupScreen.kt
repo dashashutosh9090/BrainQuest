@@ -300,24 +300,6 @@ fun QuizSetupScreen(navController: NavController, quizViewModel: QuizViewModel =
                 modifier = Modifier.fillMaxWidth(),
                 enabled = !uiState.loading
             )
-            
-            Spacer(modifier = Modifier.height(16.dp))
-            
-            // Quick Start Option
-            BrainQuestOutlinedButton(
-                onClick = {
-                    quizViewModel.resetQuiz()
-                    val config = QuizConfig(
-                        amount = 10,
-                        category = selectedCategory,
-                        difficulty = selectedDifficulty,
-                        type = selectedType
-                    )
-                    quizViewModel.fetchQuestions(config)
-                },
-                text = "Start with Current Settings",
-                modifier = Modifier.fillMaxWidth()
-            )
         }
     }
 }
