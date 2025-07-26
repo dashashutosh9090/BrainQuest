@@ -294,7 +294,6 @@ fun QuizSetupScreen(navController: NavController, quizViewModel: QuizViewModel =
                         type = selectedType
                     )
                     quizViewModel.fetchQuestions(config)
-                    // TODO: Navigation will be handled by observing uiState.questions
                 },
                 text = if (uiState.loading) "Loading Quiz..." else "Start Quiz",
                 icon = Icons.Default.PlayArrow,
@@ -315,7 +314,6 @@ fun QuizSetupScreen(navController: NavController, quizViewModel: QuizViewModel =
                         type = selectedType
                     )
                     quizViewModel.fetchQuestions(config)
-                    // TODO: Navigation will be handled by observing uiState.questions
                 },
                 text = "Start with Current Settings",
                 modifier = Modifier.fillMaxWidth()
