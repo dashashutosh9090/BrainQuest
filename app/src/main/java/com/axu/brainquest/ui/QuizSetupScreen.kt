@@ -45,7 +45,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.axu.brainquest.ui.components.BrainQuestButton
 import com.axu.brainquest.ui.components.BrainQuestCard
-import com.axu.brainquest.ui.components.BrainQuestOutlinedButton
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
