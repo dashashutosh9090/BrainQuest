@@ -65,7 +65,7 @@ fun AppNavHost(navController: NavHostController, modifier: Modifier = Modifier) 
         composable(Screen.Login.route) { LoginScreen(navController) }
         composable(Screen.Signup.route) { SignupScreen(navController) }
         composable(Screen.Home.route) { HomeScreen(navController) }
-        composable(Screen.QuizSetup.route) { QuizSetupScreen(navController) }
+        composable(Screen.QuizSetup.route) { QuizSetupScreen(navController, quizViewModel) }
         composable(Screen.Quiz.route) { QuizScreen(navController, quizViewModel) }
         composable(Screen.Result.route) { ResultScreen(navController, quizViewModel) }
         composable(Screen.Profile.route) { ProfileScreen(navController) }

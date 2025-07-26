@@ -28,6 +28,8 @@ import androidx.compose.material3.MenuAnchorType
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -41,7 +43,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.axu.brainquest.Screen
 import com.axu.brainquest.ui.components.BrainQuestButton
 import com.axu.brainquest.ui.components.BrainQuestCard
 import com.axu.brainquest.ui.components.BrainQuestOutlinedButton
@@ -49,6 +50,7 @@ import com.axu.brainquest.ui.components.BrainQuestOutlinedButton
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun QuizSetupScreen(navController: NavController, quizViewModel: QuizViewModel = viewModel()) {
+    val uiState by quizViewModel.uiState.collectAsState()
 
     // Preserve selections across recompositions
     var selectedCategory by rememberSaveable { mutableStateOf(QuizCategory.ANY) }
@@ -59,6 +61,15 @@ fun QuizSetupScreen(navController: NavController, quizViewModel: QuizViewModel =
     var categoryExpanded by remember { mutableStateOf(false) }
     var difficultyExpanded by remember { mutableStateOf(false) }
     var typeExpanded by remember { mutableStateOf(false) }
+
+    // Navigate to quiz when questions are loaded successfully
+    LaunchedEffect(uiState.questions.size, uiState.loading) {
+        if (uiState.questions.isNotEmpty() && !uiState.loading) {
+            navController.navigate("quiz") {
+                popUpTo("quiz_setup") { inclusive = true }
+            }
+        }
+    }
 
     Box(
         modifier = Modifier
@@ -283,13 +294,12 @@ fun QuizSetupScreen(navController: NavController, quizViewModel: QuizViewModel =
                         type = selectedType
                     )
                     quizViewModel.fetchQuestions(config)
-                    navController.navigate(Screen.Quiz.route) {
-                        popUpTo(Screen.QuizSetup.route) { inclusive = true }
-                    }
+                    // TODO: Navigation will be handled by observing uiState.questions
                 },
-                text = "Start Quiz",
+                text = if (uiState.loading) "Loading Quiz..." else "Start Quiz",
                 icon = Icons.Default.PlayArrow,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
+                enabled = !uiState.loading
             )
             
             Spacer(modifier = Modifier.height(16.dp))
@@ -305,9 +315,7 @@ fun QuizSetupScreen(navController: NavController, quizViewModel: QuizViewModel =
                         type = selectedType
                     )
                     quizViewModel.fetchQuestions(config)
-                    navController.navigate(Screen.Quiz.route) {
-                        popUpTo(Screen.QuizSetup.route) { inclusive = true }
-                    }
+                    // TODO: Navigation will be handled by observing uiState.questions
                 },
                 text = "Start with Current Settings",
                 modifier = Modifier.fillMaxWidth()

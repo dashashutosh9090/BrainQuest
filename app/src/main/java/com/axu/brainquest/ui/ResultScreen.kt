@@ -184,7 +184,7 @@ fun ResultScreen(navController: NavController, quizViewModel: QuizViewModel = vi
             BrainQuestButton(
                 onClick = {
                     quizViewModel.resetQuiz()
-                    navController.navigate(Screen.Quiz.route) {
+                    navController.navigate(Screen.QuizSetup.route) {
                         popUpTo(Screen.Result.route) { inclusive = true }
                     }
                 },

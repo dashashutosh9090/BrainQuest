@@ -80,42 +80,53 @@ fun LeaderboardScreen(navController: NavController) {
             loading = true
             error = null
             
-            // Get all users
-            val usersQuery = db.collection("users").get().await()
+            // Get all users with orderBy to ensure we get everyone
+            val usersQuery = db.collection("users")
+                .get()
+                .await()
+            
             val leaderboardEntries = mutableListOf<LeaderboardEntry>()
             
             for (userDoc in usersQuery.documents) {
-                val userData = userDoc.data ?: continue
+                val userData = userDoc.data ?: continue // Skip invalid documents
                 val userId = userDoc.id
                 
-                // Get user's quiz scores
-                val scoresQuery = db.collection("users")
-                    .document(userId)
-                    .collection("scores")
-                    .get()
-                    .await()
-                
-                val scores = scoresQuery.documents.map { doc ->
-                    doc.getLong("score")?.toInt() ?: 0
+                try {
+                    // Get user's quiz scores
+                    val scoresQuery = db.collection("users")
+                        .document(userId)
+                        .collection("scores")
+                        .orderBy("timestamp", com.google.firebase.firestore.Query.Direction.DESCENDING)
+                        .get()
+                        .await()
+                    
+                    val scores = scoresQuery.documents.mapNotNull { doc ->
+                        doc.getLong("score")?.toInt()
+                    }
+                    
+                    // Add users with some quiz data (skip users who never took quizzes for leaderboard)
+                    if (scores.isNotEmpty()) {
+                        val totalQuizzes = scores.size
+                        val totalScore = scores.sum()
+                        val averageScore = scores.average()
+                        val bestScore = scores.maxOrNull() ?: 0
+                        
+                        leaderboardEntries.add(
+                            LeaderboardEntry(
+                                uid = userId,
+                                name = userData["name"] as? String ?: "Anonymous",
+                                email = userData["email"] as? String ?: "",
+                                totalQuizzes = totalQuizzes,
+                                averageScore = averageScore,
+                                bestScore = bestScore,
+                                totalScore = totalScore
+                            )
+                        )
+                    }
+                } catch (_: Exception) {
+                    // Skip this user if we can't fetch their scores
+                    continue
                 }
-                
-                // Add all users, even those with no scores
-                val totalQuizzes = scores.size
-                val totalScore = scores.sum()
-                val averageScore = if (scores.isNotEmpty()) scores.average() else 0.0
-                val bestScore = scores.maxOrNull() ?: 0
-                
-                leaderboardEntries.add(
-                    LeaderboardEntry(
-                        uid = userId,
-                        name = userData["name"] as? String ?: "Anonymous",
-                        email = userData["email"] as? String ?: "",
-                        totalQuizzes = totalQuizzes,
-                        averageScore = averageScore,
-                        bestScore = bestScore,
-                        totalScore = totalScore
-                    )
-                )
             }
             
             // Sort based on selected tab
@@ -342,15 +353,26 @@ fun LeaderboardItem(
                 contentAlignment = Alignment.Center
             ) {
                 if (rank <= 3) {
-                    Icon(
-                        imageVector = Icons.Default.EmojiEvents,
-                        contentDescription = null,
-                        tint = rankColor,
-                        modifier = Modifier.size(24.dp)
-                    )
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.EmojiEvents,
+                            contentDescription = "#$rank place",
+                            tint = rankColor,
+                            modifier = Modifier.size(16.dp)
+                        )
+                        Text(
+                            text = "#$rank",
+                            style = MaterialTheme.typography.labelSmall,
+                            fontWeight = FontWeight.Bold,
+                            color = rankColor,
+                            textAlign = TextAlign.Center
+                        )
+                    }
                 } else {
                     Text(
-                        text = "$rank",
+                        text = "#$rank",
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.primary

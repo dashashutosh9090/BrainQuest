@@ -48,13 +48,17 @@ import com.axu.brainquest.ui.components.BrainQuestTextField
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.userProfileChangeRequest
 import com.google.firebase.firestore.FirebaseFirestore
+import android.widget.Toast
+import androidx.compose.ui.platform.LocalContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SignupScreen(navController: NavController) {
+    val context = LocalContext.current
     var name by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -102,21 +106,20 @@ fun SignupScreen(navController: NavController) {
 
     fun signUp() {
         if (!validateInputs()) return
-        
+
         loading = true
         error = null
+
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val user = auth.currentUser
                     if (user != null) {
-                        // Update user profile with display name
                         val profileUpdates = userProfileChangeRequest {
                             displayName = name
                         }
                         user.updateProfile(profileUpdates)
-                        
-                        // Save to Firestore
+
                         CoroutineScope(Dispatchers.IO).launch {
                             try {
                                 val db = FirebaseFirestore.getInstance()
@@ -126,26 +129,37 @@ fun SignupScreen(navController: NavController) {
                                     "name" to name,
                                     "createdAt" to com.google.firebase.Timestamp.now()
                                 )
+
                                 db.collection("users").document(user.uid).set(userData)
                                     .addOnSuccessListener {
-                                        loading = false
-                                        navController.navigate(Screen.Home.route) {
-                                            popUpTo(Screen.Signup.route) { inclusive = true }
+                                        CoroutineScope(Dispatchers.Main).launch {
+                                            loading = false
+                                            Toast.makeText(context, "Account created successfully", Toast.LENGTH_LONG).show()
+                                            navController.navigate(Screen.Home.route) {
+                                                popUpTo(Screen.Signup.route) { inclusive = true }
+                                            }
                                         }
                                     }
                                     .addOnFailureListener { e ->
-                                        loading = false
-                                        error = e.localizedMessage ?: "Failed to save user info"
+                                        CoroutineScope(Dispatchers.Main).launch {
+                                            loading = false
+                                            error = e.localizedMessage ?: "Failed to save user info"
+                                            Toast.makeText(context, error, Toast.LENGTH_LONG).show()
+                                        }
                                     }
                             } catch (e: Exception) {
-                                loading = false
-                                error = e.localizedMessage ?: "Failed to save user info"
+                                withContext(Dispatchers.Main) {
+                                    loading = false
+                                    error = e.localizedMessage ?: "Failed to save user info"
+                                    Toast.makeText(context, error, Toast.LENGTH_LONG).show()
+                                }
                             }
                         }
                     }
                 } else {
                     loading = false
                     error = task.exception?.localizedMessage ?: "Signup failed"
+                    Toast.makeText(context, error, Toast.LENGTH_LONG).show()
                 }
             }
     }

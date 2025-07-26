@@ -80,19 +80,29 @@ fun QuizScreen(navController: NavController, quizViewModel: QuizViewModel = view
             contentAlignment = Alignment.Center
         ) {
             BrainQuestCard {
-                Text(
-                    text = "No questions available",
-                    style = MaterialTheme.typography.titleLarge,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier.fillMaxWidth()
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-                Text(
-                    text = "Please try again later or check your connection",
-                    style = MaterialTheme.typography.bodyMedium,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier.fillMaxWidth()
-                )
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(
+                        text = "No Quiz Selected",
+                        style = MaterialTheme.typography.titleLarge,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(
+                        text = "Please go back to set up your quiz",
+                        style = MaterialTheme.typography.bodyMedium,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
+                    BrainQuestButton(
+                        onClick = { navController.navigate(Screen.QuizSetup.route) },
+                        text = "Set Up Quiz",
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                }
             }
         }
         return
@@ -248,7 +258,8 @@ fun QuizScreen(navController: NavController, quizViewModel: QuizViewModel = view
                     onClick = {
                         if (isLast) {
                             scope.launch {
-                                saveQuizResultToFirestore(state.score)
+                                val category = if (state.questions.isNotEmpty()) state.questions[0].category else "General Knowledge"
+                                saveQuizResultToFirestore(state.score, state.questions.size, category)
                                 navController.navigate(Screen.Result.route) {
                                     popUpTo(Screen.Quiz.route) { inclusive = true }
                                 }
@@ -322,13 +333,19 @@ fun QuizScreen(navController: NavController, quizViewModel: QuizViewModel = view
     }
 }
 
-fun saveQuizResultToFirestore(score: Int) {
+fun saveQuizResultToFirestore(score: Int, totalQuestions: Int = 10, category: String = "General Knowledge") {
     val user = com.google.firebase.auth.FirebaseAuth.getInstance().currentUser ?: return
     val db = com.google.firebase.firestore.FirebaseFirestore.getInstance()
     val data = mapOf(
         "score" to score,
+        "totalQuestions" to totalQuestions,
+        "category" to category,
         "timestamp" to com.google.firebase.Timestamp.now()
     )
     db.collection("users").document(user.uid)
         .collection("scores").add(data)
+        .addOnFailureListener { e ->
+            // Log error but don't crash
+            e.printStackTrace()
+        }
 }

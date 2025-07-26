@@ -23,7 +23,8 @@ data class QuizQuestion(
 )
 
 data class QuizResponse(
-    @SerializedName("results") val results: List<QuizQuestion>
+    @SerializedName("response_code") val responseCode: Int = 0,
+    @SerializedName("results") val results: List<QuizQuestion> = emptyList()
 )
 
 // --- Quiz Configuration ---
@@ -107,31 +108,62 @@ data class QuizUiState(
 )
 
 class QuizViewModel : ViewModel() {
-    private val _uiState = MutableStateFlow(QuizUiState(loading = true))
+    private val _uiState = MutableStateFlow(QuizUiState(loading = false))
     val uiState: StateFlow<QuizUiState> = _uiState.asStateFlow()
 
-    init {
-        fetchQuestions()
-    }
+    // Remove automatic initialization - let QuizSetupScreen control when to fetch
 
     fun fetchQuestions(config: QuizConfig = QuizConfig()) {
         _uiState.value = QuizUiState(loading = true)
         viewModelScope.launch {
             try {
+                // Log the API request parameters for debugging
+                val amount = config.amount.coerceIn(1, 50)
+                val category = if (config.category == QuizCategory.ANY) null else config.category.id
+                val difficulty = if (config.difficulty == QuizDifficulty.ANY) null else config.difficulty.value
+                val type = if (config.type == QuizType.ANY) null else config.type.value
+                
+                println("Fetching questions: amount=$amount, category=$category, difficulty=$difficulty, type=$type")
+                
                 // Explicitly handle each parameter according to OpenTDB API requirements
                 val response = RetrofitInstance.api.getQuestions(
-                    amount = config.amount.coerceIn(1, 50), // Ensure amount is within valid range
-                    category = if (config.category == QuizCategory.ANY) null else config.category.id,
-                    difficulty = if (config.difficulty == QuizDifficulty.ANY) null else config.difficulty.value,
-                    type = if (config.type == QuizType.ANY) null else config.type.value
+                    amount = amount,
+                    category = category,
+                    difficulty = difficulty,
+                    type = type
                 )
-                _uiState.value = QuizUiState(
-                    loading = false,
-                    questions = response.results,
-                    userAnswers = List(response.results.size) { "" }
-                )
+                
+                println("API Response: code=${response.responseCode}, ${response.results.size} questions received")
+                
+                when (response.responseCode) {
+                    0 -> {
+                        // Success
+                        if (response.results.isEmpty()) {
+                            _uiState.value = QuizUiState(loading = false, error = "No questions found for the selected criteria. Try different settings.")
+                        } else {
+                            _uiState.value = QuizUiState(
+                                loading = false,
+                                questions = response.results,
+                                userAnswers = List(response.results.size) { "" }
+                            )
+                        }
+                    }
+                    1 -> _uiState.value = QuizUiState(loading = false, error = "No questions found. Try different category or difficulty.")
+                    2 -> _uiState.value = QuizUiState(loading = false, error = "Invalid parameter. Please try again.")
+                    3 -> _uiState.value = QuizUiState(loading = false, error = "Token not found. Please try again.")
+                    4 -> _uiState.value = QuizUiState(loading = false, error = "Token empty. Please try again.")
+                    else -> _uiState.value = QuizUiState(loading = false, error = "Unexpected response from server. Code: ${response.responseCode}")
+                }
             } catch (e: Exception) {
-                _uiState.value = QuizUiState(loading = false, error = e.localizedMessage)
+                println("API Error: ${e.message}")
+                e.printStackTrace()
+                val errorMessage = when {
+                    e.message?.contains("Unable to resolve host") == true -> "No internet connection. Please check your network."
+                    e.message?.contains("timeout") == true -> "Request timed out. Please try again."
+                    e.message?.contains("HTTP") == true -> "Server error. Please try again later."
+                    else -> e.localizedMessage ?: "Failed to load questions. Please try again."
+                }
+                _uiState.value = QuizUiState(loading = false, error = errorMessage)
             }
         }
     }
@@ -160,7 +192,7 @@ class QuizViewModel : ViewModel() {
     }
 
     fun resetQuiz() {
-        fetchQuestions()
+        _uiState.value = QuizUiState(loading = false)
     }
 
 }

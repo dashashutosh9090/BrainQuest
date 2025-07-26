@@ -83,19 +83,51 @@ fun HomeScreen(navController: NavController) {
                 .collection("scores").get()
                 .addOnSuccessListener { scores ->
                     totalQuizzes = scores.size()
-                    val allScores = scores.documents.mapNotNull { it.getLong("score")?.toFloat() ?: 0f }
+                    val allScores = scores.documents.mapNotNull { 
+                        val score = it.getLong("score")?.toInt() ?: 0
+                        val totalQuestions = it.getLong("totalQuestions")?.toInt() ?: 10
+                        (score.toFloat() / totalQuestions.toFloat()) * 100
+                    }
                     averageScore = if (allScores.isNotEmpty()) {
-                        (allScores.sum() / (allScores.size * 10f)) * 100 // Convert to percentage
+                        allScores.average().toFloat()
                     } else 0f
                 }
 
-            // Fetch user rank
+            // Fetch user rank based on total score (matching leaderboard default)
+            // This ensures rank consistency between HomeScreen and LeaderboardScreen
             db.collection("users")
-                .orderBy("highScore", com.google.firebase.firestore.Query.Direction.DESCENDING)
                 .get()
                 .addOnSuccessListener { users ->
-                    val userIndex = users.documents.indexOfFirst { it.id == currentUser.uid }
-                    userRank = if (userIndex != -1) userIndex + 1 else 0
+                    val userRankings = mutableListOf<Pair<String, Int>>()
+                    val userTasks = mutableListOf<com.google.android.gms.tasks.Task<com.google.firebase.firestore.QuerySnapshot>>()
+                    
+                    // Get all users and their scores
+                    for (userDoc in users.documents) {
+                        val task = db.collection("users").document(userDoc.id)
+                            .collection("scores").get()
+                        userTasks.add(task)
+                    }
+                    
+                    com.google.android.gms.tasks.Tasks.whenAllComplete(userTasks)
+                        .addOnCompleteListener { tasks ->
+                            users.documents.forEachIndexed { index, userDoc ->
+                                val scoresSnapshot = userTasks[index].result
+                                if (scoresSnapshot != null) {
+                                    val allScores = scoresSnapshot.documents.mapNotNull { 
+                                        it.getLong("score")?.toInt()
+                                    }
+                                    val totalScore = if (allScores.isNotEmpty()) allScores.sum() else 0
+                                    if (totalScore > 0) { // Only include users with some quiz data
+                                        userRankings.add(Pair(userDoc.id, totalScore))
+                                    }
+                                }
+                            }
+                            
+                            // Sort by total score and find current user's rank
+                            userRankings.sortByDescending { it.second }
+                            val userIndex = userRankings.indexOfFirst { it.first == currentUser.uid }
+                            userRank = if (userIndex != -1) userIndex + 1 else 0
+                        }
                 }
 
             // Fetch recent quizzes
@@ -108,6 +140,7 @@ fun HomeScreen(navController: NavController) {
                     recentQuizzes = documents.documents.map { doc ->
                         mapOf(
                             "score" to (doc.getLong("score") ?: 0),
+                            "totalQuestions" to (doc.getLong("totalQuestions") ?: 10),
                             "timestamp" to (doc.getTimestamp("timestamp") ?: com.google.firebase.Timestamp.now()),
                             "category" to (doc.getString("category") ?: "General Knowledge")
                         )
@@ -384,7 +417,7 @@ fun HomeScreen(navController: NavController) {
                                         fontWeight = FontWeight.Medium
                                     )
                                     Text(
-                                        text = "Score: ${quiz["score"]}/10 • ${formatTimeAgo(quiz["timestamp"] as com.google.firebase.Timestamp)}",
+                                        text = "Score: ${quiz["score"]}/${quiz["totalQuestions"]} • ${formatTimeAgo(quiz["timestamp"] as com.google.firebase.Timestamp)}",
                                         style = MaterialTheme.typography.bodySmall,
                                         color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
                                     )
