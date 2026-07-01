@@ -1,54 +1,47 @@
+<!-- ═══════════════════════════════════════════════════════════════════
+     Every animation in this README is hand-coded SVG living in /assets.
+     No generators. No templates. One of a kind. 🧠⚡
+     ═══════════════════════════════════════════════════════════════════ -->
+
 <div align="center">
 
-<!-- ═══════════════════════ ANIMATED HEADER ═══════════════════════ -->
-<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,12,20,24&height=220&section=header&text=🧠%20BrainQuest&fontSize=72&fontColor=ffffff&animation=twinkling&fontAlignY=32&desc=⚡%20The%20Ultimate%20Trivia%20Battle%20Arena%20⚡&descSize=20&descAlignY=55" width="100%"/>
+<img src="assets/header.svg" width="100%" alt="BrainQuest — The Ultimate Trivia Battle Arena. Animated neon circuit-brain with orbiting satellite, radar sweep and glitching title."/>
 
-<!-- ═══════════════════════ TYPING ANIMATION ═══════════════════════ -->
-<a href="https://github.com/dashashutosh9090/BrainQuest">
-  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=24&pause=1000&color=00F7FF&center=true&vCenter=true&width=700&lines=%3E+INITIALIZING+NEURAL+INTERFACE...;%3E+24+KNOWLEDGE+SECTORS+DETECTED;%3E+LEADERBOARD+UPLINK+ESTABLISHED;%3E+CHALLENGE+YOUR+BRAIN.+CLIMB+THE+RANKS.;%3E+ALL+SYSTEMS+GO+%E2%9C%93" alt="Typing Animation"/>
-</a>
+<br/>
 
-<br/><br/>
-
-<!-- ═══════════════════════ BADGE WALL ═══════════════════════ -->
 <img src="https://img.shields.io/badge/Kotlin-2.2.0-7F52FF?style=for-the-badge&logo=kotlin&logoColor=white" alt="Kotlin"/>
 <img src="https://img.shields.io/badge/Jetpack%20Compose-BOM%202025.07-4285F4?style=for-the-badge&logo=jetpackcompose&logoColor=white" alt="Jetpack Compose"/>
 <img src="https://img.shields.io/badge/Firebase-Auth%20%2B%20Firestore-FFCA28?style=for-the-badge&logo=firebase&logoColor=black" alt="Firebase"/>
 <br/>
-<img src="https://img.shields.io/badge/Material%203-Expressive-757575?style=for-the-badge&logo=materialdesign&logoColor=white" alt="Material 3"/>
 <img src="https://img.shields.io/badge/Retrofit-3.0.0-48B983?style=for-the-badge&logo=square&logoColor=white" alt="Retrofit"/>
-<img src="https://img.shields.io/badge/Min%20SDK-24-3DDC84?style=for-the-badge&logo=android&logoColor=white" alt="Min SDK"/>
-<img src="https://img.shields.io/badge/Target%20SDK-36-3DDC84?style=for-the-badge&logo=android&logoColor=white" alt="Target SDK"/>
-
+<img src="https://img.shields.io/badge/Material%203-Expressive-757575?style=for-the-badge&logo=materialdesign&logoColor=white" alt="Material 3"/>
+<img src="https://img.shields.io/badge/API-24%20→%2036-3DDC84?style=for-the-badge&logo=android&logoColor=white" alt="API range"/>
 <br/><br/>
-
 <img src="https://img.shields.io/github/stars/dashashutosh9090/BrainQuest?style=for-the-badge&logo=github&color=8A2BE2&logoColor=white" alt="Stars"/>
 <img src="https://img.shields.io/github/forks/dashashutosh9090/BrainQuest?style=for-the-badge&logo=github&color=00CED1&logoColor=white" alt="Forks"/>
-<img src="https://img.shields.io/github/last-commit/dashashutosh9090/BrainQuest?style=for-the-badge&logo=git&color=FF6B6B&logoColor=white" alt="Last Commit"/>
+<img src="https://img.shields.io/github/last-commit/dashashutosh9090/BrainQuest?style=for-the-badge&logo=git&color=FF6B6B&logoColor=white" alt="Last commit"/>
 
 </div>
 
-<!-- ═══════════════════════ ANIMATED DIVIDER ═══════════════════════ -->
-<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="100%" alt="divider"/>
+<img src="assets/divider.svg" width="100%" alt=""/>
 
 ## 🛰️ Mission Briefing
 
-```text
- ╔══════════════════════════════════════════════════════════╗
- ║  > BOOTING BRAINQUEST v1.0 .......................       ║
- ║  > NEURAL LINK ..................... ✓ ONLINE            ║
- ║  > FIREBASE UPLINK ................. ✓ CONNECTED         ║
- ║  > QUESTION DATABASE ............... ✓ 24 SECTORS LOADED ║
- ║  > DIFFICULTY MATRIX ............... ✓ EASY→MEDIUM→HARD  ║
- ║  > LEADERBOARD SATELLITE ........... ✓ IN ORBIT          ║
- ║                                                          ║
- ║        ALL SYSTEMS GO. WELCOME, CHALLENGER. 🚀           ║
- ╚══════════════════════════════════════════════════════════╝
-```
+<div align="center">
+<img src="assets/terminal.svg" width="88%" alt="Animated boot terminal: neural link online, Firebase uplink connected, 24 sectors loaded, difficulty matrix easy/medium/hard, leaderboard satellite in orbit — all systems go."/>
+</div>
+
+<br/>
 
 **BrainQuest** is a sleek, modern Android trivia app that turns knowledge into competition. Pick your battlefield from **24 categories** — from 🧬 Science to 🎮 Video Games to 🏛️ Mythology — tune the difficulty, and battle through questions streamed live from the [Open Trivia Database](https://opentdb.com/). Every score is beamed to a **global Firestore leaderboard**, so the fight for Rank #1 never ends.
 
-<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="100%" alt="divider"/>
+<img src="assets/divider.svg" width="100%" alt=""/>
+
+## 📱 Holo-Preview
+
+<div align="center">
+<img src="assets/screens.svg" width="100%" alt="Three floating holographic phone mockups: the Quiz Arena with a depleting timer ring and the correct answer lighting up, the Command Center with pulsing avatar and mission feed, and the Hall of Legends leaderboard with growing score bars."/>
+</div>
 
 ## ⚡ Feature Matrix
 
@@ -62,7 +55,7 @@ Email/password authentication powered by **Firebase Auth** — sign up, log in, 
 ### 🎛️ Quiz Configurator
 Dial in your mission parameters:
 - 🗂️ **24 categories** + random mode
-- 🌡️ **3 difficulty levels** (Easy / Medium / Hard)
+- 🌡️ **3 difficulty levels** — Easy / Medium / Hard
 - ❓ **Question types** — Multiple Choice or True/False
 - 🔢 **1–50 questions** per run
 
@@ -74,15 +67,13 @@ Questions fetched in real time via **Retrofit + Gson** from Open Trivia DB, with
 
 ### 🏆 Global Leaderboard
 Three ranking dimensions, all synced through **Cloud Firestore**:
-- 💯 Total Score
-- 📊 Average Score
-- 🥇 Best Score
+- 💯 Total Score · 📊 Average Score · 🥇 Best Score
 
-### 📡 Command Center (Home)
+### 📡 Command Center
 Your personal HQ — total quizzes flown, global rank, and a feed of your recent missions with timestamps.
 
 ### 👤 Pilot Profile
-Track your identity and stats across sessions.
+Your identity and stats, persistent across sessions.
 
 ### 🌌 Fluid UI
 100% **Jetpack Compose** + **Material 3** with edge-to-edge rendering and smooth navigation transitions.
@@ -91,7 +82,7 @@ Track your identity and stats across sessions.
 </tr>
 </table>
 
-<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="100%" alt="divider"/>
+<img src="assets/divider.svg" width="100%" alt=""/>
 
 ## 🚀 Navigation Star Map
 
@@ -137,13 +128,11 @@ flowchart TB
     SCREENS --> FB --> CLOUD
 ```
 
-<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="100%" alt="divider"/>
+<img src="assets/divider.svg" width="100%" alt=""/>
 
 ## 🛠️ Tech Arsenal
 
 <div align="center">
-
-<img src="https://skillicons.dev/icons?i=kotlin,androidstudio,firebase,gradle,git,github&theme=dark" alt="Tech Stack"/>
 
 | System | Technology | Version |
 |:------:|:-----------|:-------:|
@@ -176,12 +165,13 @@ flowchart TB
 │       ├── ⚙️ QuizViewModel.kt       → State engine + OpenTDB API
 │       ├── 🧩 components/            → Shared UI components
 │       └── 🌈 theme/                 → Colors · Typography · Theme
+├── 🎨 assets/                        → Hand-coded animated SVG art (this README!)
 └── 📦 *.apk                          → Ready-to-fly builds
 ```
 
-<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="100%" alt="divider"/>
+<img src="assets/divider.svg" width="100%" alt=""/>
 
-## 🧑‍🚀 Launch Sequence (Getting Started)
+## 🧑‍🚀 Launch Sequence
 
 > **Pre-flight checklist:** Android Studio (latest), JDK 11+, Android SDK 36, and a device/emulator on API 24+.
 
@@ -203,8 +193,6 @@ cd BrainQuest
 
 ### 📦 Instant Deploy
 
-No build tools? Grab a pre-built APK straight from the repo:
-
 <div align="center">
 
 [![Download APK](https://img.shields.io/badge/⬇️%20Download-BrainQuest--release.apk-00F7FF?style=for-the-badge&logo=android&logoColor=black)](https://github.com/dashashutosh9090/BrainQuest/raw/master/BrainQuest-release.apk)
@@ -214,7 +202,7 @@ No build tools? Grab a pre-built APK straight from the repo:
 ## 📸 Visual Transmission
 
 <details>
-<summary>🖼️ <b>Click to expand screenshots</b> <i>(incoming transmission...)</i></summary>
+<summary>🖼️ <b>Click to expand real screenshots</b> <i>(incoming transmission...)</i></summary>
 <br/>
 
 > 📡 Screenshots are being beamed down from orbit — add yours to a `screenshots/` folder and reference them here!
@@ -230,7 +218,7 @@ No build tools? Grab a pre-built APK straight from the repo:
 
 </details>
 
-<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="100%" alt="divider"/>
+<img src="assets/divider.svg" width="100%" alt=""/>
 
 ## 🤝 Join the Crew
 
@@ -258,9 +246,10 @@ Contributions, ideas, and bug reports are always welcome aboard!
 
 <br/>
 
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=18&pause=1000&color=8A2BE2&center=true&vCenter=true&width=500&lines=%3E+END+OF+TRANSMISSION;%3E+SEE+YOU+ON+THE+LEADERBOARD%2C+CHALLENGER+🏆" alt="footer typing"/>
+<sub>🎨 Every animation on this page — the circuit-brain, the boot terminal, the holo-phones, the synapse dividers — is <b>original, hand-coded animated SVG</b> that lives in <a href="assets/">assets/</a>. No generators, no templates, no copy-paste kits.</sub>
 
-<!-- ═══════════════════════ ANIMATED FOOTER ═══════════════════════ -->
-<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,12,20,24&height=140&section=footer" width="100%"/>
+<br/><br/>
+
+<img src="assets/footer.svg" width="100%" alt="End of transmission — see you on the leaderboard, challenger."/>
 
 </div>

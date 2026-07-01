@@ -1,0 +1,228 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1240 600" width="1240" height="600" role="img" aria-label="BrainQuest holo-preview: quiz arena, command center, leaderboard">
+  <defs>
+    <linearGradient id="screenBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0E1730"/>
+      <stop offset="100%" stop-color="#070B16"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#00F7FF"/>
+      <stop offset="100%" stop-color="#B026FF"/>
+    </linearGradient>
+    <linearGradient id="goldbar" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#FFB300"/>
+      <stop offset="100%" stop-color="#FF2E97"/>
+    </linearGradient>
+    <filter id="pglow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- ════════ PHONE 1 · QUIZ ARENA ════════ -->
+  <g>
+    <animateTransform attributeName="transform" type="translate" values="0 0;0 -9;0 0" dur="5s" begin="0s" repeatCount="indefinite"/>
+    <rect x="70" y="20" width="300" height="520" rx="38" fill="#0B0F1A" stroke="#2A3A52" stroke-width="3"/>
+    <rect x="82" y="32" width="276" height="496" rx="28" fill="url(#screenBg)"/>
+    <rect x="180" y="40" width="80" height="14" rx="7" fill="#05070C"/>
+
+    <!-- header -->
+    <text x="104" y="86" font-family="Consolas,monospace" font-size="14" fill="#00F7FF" letter-spacing="2">QUESTION 07/10</text>
+
+    <!-- timer ring -->
+    <g transform="translate(322,80)">
+      <circle r="20" fill="none" stroke="#1B2A44" stroke-width="4"/>
+      <circle r="20" fill="none" stroke="#00F7FF" stroke-width="4" stroke-linecap="round"
+              stroke-dasharray="125.6" transform="rotate(-90)">
+        <animate attributeName="stroke-dashoffset" values="0;125.6" dur="8s" repeatCount="indefinite"/>
+        <animate attributeName="stroke" values="#00F7FF;#00F7FF;#FFB300;#FF5F56" keyTimes="0;0.5;0.75;1" dur="8s" repeatCount="indefinite"/>
+      </circle>
+    </g>
+
+    <!-- question card -->
+    <rect x="104" y="108" width="232" height="92" rx="14" fill="#121C31" stroke="#22314A"/>
+    <rect x="120" y="128" width="196" height="10" rx="5" fill="#33465F"/>
+    <rect x="120" y="150" width="168" height="10" rx="5" fill="#33465F"/>
+    <rect x="120" y="172" width="120" height="10" rx="5" fill="#2A3A52"/>
+
+    <!-- options: B lights up correct -->
+    <g font-family="Consolas,monospace" font-size="14">
+      <rect x="104" y="220" width="232" height="46" rx="12" fill="#121C31" stroke="#22314A"/>
+      <text x="124" y="248" fill="#7E8EA3">A · ─────────</text>
+
+      <rect x="104" y="276" width="232" height="46" rx="12" fill="#121C31" stroke="#22314A">
+        <animate attributeName="fill" values="#121C31;#121C31;#0E3B2E;#0E3B2E;#121C31" keyTimes="0;0.45;0.5;0.85;1" dur="6s" repeatCount="indefinite"/>
+        <animate attributeName="stroke" values="#22314A;#22314A;#7CFF6B;#7CFF6B;#22314A" keyTimes="0;0.45;0.5;0.85;1" dur="6s" repeatCount="indefinite"/>
+      </rect>
+      <text x="124" y="304" fill="#7E8EA3">B · ─────────</text>
+      <text x="312" y="304" fill="#7CFF6B" font-weight="bold">
+        <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.5;0.53;0.85;1" dur="6s" repeatCount="indefinite"/>✓</text>
+
+      <rect x="104" y="332" width="232" height="46" rx="12" fill="#121C31" stroke="#22314A"/>
+      <text x="124" y="360" fill="#7E8EA3">C · ─────────</text>
+
+      <rect x="104" y="388" width="232" height="46" rx="12" fill="#121C31" stroke="#22314A"/>
+      <text x="124" y="416" fill="#7E8EA3">D · ─────────</text>
+    </g>
+
+    <!-- score chip -->
+    <rect x="104" y="456" width="232" height="12" rx="6" fill="#121C31"/>
+    <rect x="104" y="456" height="12" rx="6" fill="url(#accent)">
+      <animate attributeName="width" values="0;162;162" keyTimes="0;0.4;1" dur="6s" repeatCount="indefinite"/>
+    </rect>
+    <text x="104" y="496" font-family="Consolas,monospace" font-size="13" fill="#5C7089">SCORE <tspan fill="#00F7FF" font-weight="bold">700 XP</tspan></text>
+  </g>
+  <text x="220" y="580" text-anchor="middle" font-family="Consolas,monospace" font-size="15" fill="#00F7FF" letter-spacing="3">◤ QUIZ ARENA ◢</text>
+
+  <!-- ════════ PHONE 2 · COMMAND CENTER ════════ -->
+  <g>
+    <animateTransform attributeName="transform" type="translate" values="0 0;0 -9;0 0" dur="5s" begin="-1.7s" repeatCount="indefinite"/>
+    <rect x="470" y="20" width="300" height="520" rx="38" fill="#0B0F1A" stroke="#2A3A52" stroke-width="3"/>
+    <rect x="482" y="32" width="276" height="496" rx="28" fill="url(#screenBg)"/>
+    <rect x="580" y="40" width="80" height="14" rx="7" fill="#05070C"/>
+
+    <!-- avatar with pulsing ring -->
+    <g transform="translate(620,120)">
+      <circle r="34" fill="#182642" stroke="#B026FF" stroke-width="2.4"/>
+      <circle r="34" fill="none" stroke="#B026FF" stroke-width="2">
+        <animate attributeName="r" values="34;48" dur="2.2s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.8;0" dur="2.2s" repeatCount="indefinite"/>
+      </circle>
+      <circle cy="-6" r="11" fill="#33465F"/>
+      <path d="M-18 22 Q0 2 18 22 Z" fill="#33465F"/>
+    </g>
+    <text x="620" y="188" text-anchor="middle" font-family="Consolas,monospace" font-size="15" fill="#E6EDF3" letter-spacing="1">CMDR. CHALLENGER</text>
+    <text x="620" y="208" text-anchor="middle" font-family="Consolas,monospace" font-size="12" fill="#5C7089">NEURAL PILOT · LVL 9</text>
+
+    <!-- stat chips with shimmer -->
+    <g font-family="Consolas,monospace">
+      <rect x="504" y="228" width="112" height="58" rx="12" fill="#121C31" stroke="#22314A"/>
+      <text x="560" y="254" text-anchor="middle" font-size="20" fill="#00F7FF" font-weight="bold">42</text>
+      <text x="560" y="274" text-anchor="middle" font-size="11" fill="#5C7089">MISSIONS</text>
+
+      <rect x="624" y="228" width="112" height="58" rx="12" fill="#121C31" stroke="#22314A"/>
+      <text x="680" y="254" text-anchor="middle" font-size="20" fill="#FFB300" font-weight="bold">#07</text>
+      <text x="680" y="274" text-anchor="middle" font-size="11" fill="#5C7089">GLOBAL RANK</text>
+    </g>
+    <clipPath id="chipClip"><rect x="504" y="228" width="232" height="58" rx="12"/></clipPath>
+    <rect x="504" y="228" width="36" height="58" fill="#FFFFFF" opacity="0.08" clip-path="url(#chipClip)" transform="skewX(-18)">
+      <animateTransform attributeName="transform" type="translate" values="-80 0;300 0" dur="3s" repeatCount="indefinite" additive="sum"/>
+    </rect>
+
+    <!-- recent missions feed -->
+    <g font-family="Consolas,monospace" font-size="12">
+      <text x="504" y="318" fill="#5C7089" letter-spacing="2">RECENT MISSIONS</text>
+      <g>
+        <animate attributeName="opacity" values="0;1;1" keyTimes="0;0.15;1" dur="5s" repeatCount="indefinite"/>
+        <rect x="504" y="330" width="232" height="34" rx="9" fill="#121C31"/>
+        <circle cx="522" cy="347" r="5" fill="#7CFF6B"/>
+        <text x="538" y="351" fill="#B7C7DB">SCIENCE · 9/10 · 2h ago</text>
+      </g>
+      <g>
+        <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.2;0.35;1" dur="5s" repeatCount="indefinite"/>
+        <rect x="504" y="372" width="232" height="34" rx="9" fill="#121C31"/>
+        <circle cx="522" cy="389" r="5" fill="#FFB300"/>
+        <text x="538" y="393" fill="#B7C7DB">MYTHOLOGY · 7/10 · 1d ago</text>
+      </g>
+      <g>
+        <animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.4;0.55;1" dur="5s" repeatCount="indefinite"/>
+        <rect x="504" y="414" width="232" height="34" rx="9" fill="#121C31"/>
+        <circle cx="522" cy="431" r="5" fill="#FF2E97"/>
+        <text x="538" y="435" fill="#B7C7DB">VIDEO GAMES · 10/10 · 2d ago</text>
+      </g>
+    </g>
+
+    <!-- start quest button -->
+    <rect x="504" y="464" width="232" height="44" rx="22" fill="none" stroke="url(#accent)" stroke-width="2" filter="url(#pglow)">
+      <animate attributeName="stroke-opacity" values="1;0.4;1" dur="1.8s" repeatCount="indefinite"/>
+    </rect>
+    <text x="620" y="491" text-anchor="middle" font-family="Consolas,monospace" font-size="15" fill="#00F7FF" letter-spacing="3" font-weight="bold">▶ START QUEST</text>
+  </g>
+  <text x="620" y="580" text-anchor="middle" font-family="Consolas,monospace" font-size="15" fill="#B026FF" letter-spacing="3">◤ COMMAND CENTER ◢</text>
+
+  <!-- ════════ PHONE 3 · HALL OF LEGENDS ════════ -->
+  <g>
+    <animateTransform attributeName="transform" type="translate" values="0 0;0 -9;0 0" dur="5s" begin="-3.4s" repeatCount="indefinite"/>
+    <rect x="870" y="20" width="300" height="520" rx="38" fill="#0B0F1A" stroke="#2A3A52" stroke-width="3"/>
+    <rect x="882" y="32" width="276" height="496" rx="28" fill="url(#screenBg)"/>
+    <rect x="980" y="40" width="80" height="14" rx="7" fill="#05070C"/>
+
+    <!-- trophy -->
+    <g transform="translate(1020,104)" filter="url(#pglow)">
+      <path d="M-26 -28 h52 v10 c0 20 -10 34 -26 38 c-16 -4 -26 -18 -26 -38 Z" fill="#FFB300"/>
+      <path d="M-26 -24 h-12 c-2 16 8 26 16 27" fill="none" stroke="#FFB300" stroke-width="5"/>
+      <path d="M26 -24 h12 c2 16 -8 26 -16 27" fill="none" stroke="#FFB300" stroke-width="5"/>
+      <rect x="-7" y="20" width="14" height="14" fill="#FFB300"/>
+      <rect x="-20" y="34" width="40" height="8" rx="3" fill="#FFB300"/>
+      <animate attributeName="opacity" values="1;0.65;1" dur="2.4s" repeatCount="indefinite"/>
+      <circle cx="18" cy="-20" r="3" fill="#FFFFFF">
+        <animate attributeName="opacity" values="0;1;0" dur="2.4s" repeatCount="indefinite"/>
+      </circle>
+    </g>
+    <text x="1020" y="172" text-anchor="middle" font-family="Consolas,monospace" font-size="14" fill="#FFB300" letter-spacing="3">HALL OF LEGENDS</text>
+
+    <!-- tabs -->
+    <g font-family="Consolas,monospace" font-size="11">
+      <rect x="904" y="186" width="74" height="24" rx="12" fill="#1C2A44" stroke="#00F7FF" stroke-width="1"/>
+      <text x="941" y="202" text-anchor="middle" fill="#00F7FF">TOTAL</text>
+      <rect x="984" y="186" width="74" height="24" rx="12" fill="#121C31"/>
+      <text x="1021" y="202" text-anchor="middle" fill="#5C7089">AVG</text>
+      <rect x="1064" y="186" width="74" height="24" rx="12" fill="#121C31"/>
+      <text x="1101" y="202" text-anchor="middle" fill="#5C7089">BEST</text>
+    </g>
+
+    <!-- leaderboard rows: bars grow -->
+    <g font-family="Consolas,monospace" font-size="13">
+      <!-- #1 gold -->
+      <rect x="904" y="226" width="234" height="46" rx="10" fill="#1A1A0F" stroke="#FFB300" stroke-width="1.2">
+        <animate attributeName="stroke-opacity" values="1;0.35;1" dur="2s" repeatCount="indefinite"/>
+      </rect>
+      <text x="920" y="254" fill="#FFB300" font-weight="bold">1</text>
+      <circle cx="948" cy="249" r="11" fill="#33465F"/>
+      <text x="968" y="245" fill="#E6EDF3">NOVA_X</text>
+      <rect x="968" y="252" width="120" height="7" rx="3.5" fill="#1B2A44"/>
+      <rect x="968" y="252" height="7" rx="3.5" fill="url(#goldbar)">
+        <animate attributeName="width" values="0;120;120" keyTimes="0;0.35;1" dur="6s" repeatCount="indefinite"/>
+      </rect>
+      <text x="1126" y="254" text-anchor="end" fill="#FFB300" font-weight="bold">982</text>
+
+      <!-- #2 -->
+      <rect x="904" y="280" width="234" height="46" rx="10" fill="#121C31"/>
+      <text x="920" y="308" fill="#B7C7DB" font-weight="bold">2</text>
+      <circle cx="948" cy="303" r="11" fill="#33465F"/>
+      <text x="968" y="299" fill="#B7C7DB">QUBIT_9</text>
+      <rect x="968" y="306" width="120" height="7" rx="3.5" fill="#1B2A44"/>
+      <rect x="968" y="306" height="7" rx="3.5" fill="url(#accent)">
+        <animate attributeName="width" values="0;104;104" keyTimes="0;0.42;1" dur="6s" repeatCount="indefinite"/>
+      </rect>
+      <text x="1126" y="308" text-anchor="end" fill="#00F7FF">871</text>
+
+      <!-- #3 -->
+      <rect x="904" y="334" width="234" height="46" rx="10" fill="#121C31"/>
+      <text x="920" y="362" fill="#B7C7DB" font-weight="bold">3</text>
+      <circle cx="948" cy="357" r="11" fill="#33465F"/>
+      <text x="968" y="353" fill="#B7C7DB">SYNAPSE</text>
+      <rect x="968" y="360" width="120" height="7" rx="3.5" fill="#1B2A44"/>
+      <rect x="968" y="360" height="7" rx="3.5" fill="url(#accent)">
+        <animate attributeName="width" values="0;92;92" keyTimes="0;0.49;1" dur="6s" repeatCount="indefinite"/>
+      </rect>
+      <text x="1126" y="362" text-anchor="end" fill="#00F7FF">804</text>
+
+      <!-- #7 you -->
+      <rect x="904" y="388" width="234" height="46" rx="10" fill="#0F1E38" stroke="#B026FF" stroke-width="1.4" stroke-dasharray="6 4">
+        <animate attributeName="stroke-dashoffset" values="10;0" dur="1s" repeatCount="indefinite"/>
+      </rect>
+      <text x="920" y="416" fill="#B026FF" font-weight="bold">7</text>
+      <circle cx="948" cy="411" r="11" fill="#3A2A5F"/>
+      <text x="968" y="407" fill="#E6EDF3">YOU ▲</text>
+      <rect x="968" y="414" width="120" height="7" rx="3.5" fill="#1B2A44"/>
+      <rect x="968" y="414" height="7" rx="3.5" fill="#B026FF">
+        <animate attributeName="width" values="0;74;74" keyTimes="0;0.56;1" dur="6s" repeatCount="indefinite"/>
+      </rect>
+      <text x="1126" y="416" text-anchor="end" fill="#B026FF">693</text>
+    </g>
+
+    <text x="1020" y="480" text-anchor="middle" font-family="Consolas,monospace" font-size="12" fill="#5C7089">
+      <animate attributeName="opacity" values="0.4;1;0.4" dur="2.6s" repeatCount="indefinite"/>⟳ SYNCED WITH FIRESTORE</text>
+  </g>
+  <text x="1020" y="580" text-anchor="middle" font-family="Consolas,monospace" font-size="15" fill="#FFB300" letter-spacing="3">◤ HALL OF LEGENDS ◢</text>
+</svg>
